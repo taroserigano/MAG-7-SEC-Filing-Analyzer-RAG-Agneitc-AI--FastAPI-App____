@@ -23,20 +23,40 @@ Provisioned with **Terraform** and deployed on **AWS** with cost guardrails:
 - **SSM Parameter Store** stores runtime secrets/config
 - **AWS Budgets + CloudWatch Billing Alarm + SNS** sends cost alerts
 
+```mermaid
+flowchart TB
+        U[Users / Browser]
+        S3[S3 Static Website\nReact Build]
+        EC2[EC2 t3.micro\nFastAPI Docker Container]
+        ECR[ECR\nBackend Image Repository]
+        SSM[SSM Parameter Store\nSecrets + Runtime Config]
+        EXT[OpenAI / Anthropic / Ollama]
+        PC[Pinecone Vector DB]
+        TF[Terraform]
+        BUD[AWS Budgets]
+        CW[CloudWatch Billing Alarm]
+        SNS[SNS Email Alerts]
+
+        U --> S3
+        S3 -->|REST API calls| EC2
+        EC2 --> EXT
+        EC2 --> PC
+        EC2 --> SSM
+        EC2 -->|docker pull| ECR
+
+        TF --> EC2
+        TF --> ECR
+        TF --> S3
+        TF --> SSM
+        TF --> BUD
+        TF --> CW
+        TF --> SNS
+
+        BUD --> SNS
+        CW --> SNS
 ```
-Users
-    │
-    ├──> S3 Static Website (React)
-    │         │
-    │         └──> EC2 :8000 (FastAPI backend container)
-    │                         │
-    │                         ├──> Pinecone (vector retrieval)
-    │                         └──> OpenAI / Anthropic / Ollama
-    │
-Terraform
-    ├── provisions: EC2, ECR, S3, IAM, SSM, SG
-    └── cost guardrails: AWS Budget + Billing Alarm + SNS email
-```
+
+Diagram source: `docs/infra-architecture.mmd`
 
 ---
 
