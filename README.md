@@ -72,11 +72,20 @@ Diagram source: `docs/infra-architecture.mmd`
 
 ### 🔥 Core Stack (Strong Highlights)
 
-- **FastAPI + Async Python** for high-throughput backend APIs and agent orchestration.
-- **LangChain Multi-Agent RAG** with deterministic routing + single-call fast RAG pipeline.
-- **Pinecone Vector Database** for low-latency semantic retrieval across SEC filings.
-- **React 18 + Vite** for fast, responsive frontend UX.
-- **Terraform on AWS** provisioning EC2, ECR, S3 static hosting, IAM, SSM, Budgets, and CloudWatch billing alerts.
+- **FastAPI + Async Python** — blazing-fast APIs, clean architecture, and excellent developer velocity.
+- **LangChain Multi-Agent RAG** — smart routing + retrieval + synthesis that feels truly “agentic.”
+- **Pinecone Vector Database** — lightning semantic search over large SEC filing corpora.
+- **React 18 + Vite** — ultra-snappy UI feedback and modern frontend productivity.
+- **Terraform on AWS** — repeatable, production-style infrastructure with real cost guardrails.
+
+### ⚡ Why These Technologies Shine
+
+- **FastAPI**: automatic docs, strong typing, and async performance that scales elegantly.
+- **LangChain**: flexible orchestration primitives for multi-step reasoning and retrieval workflows.
+- **Pinecone**: purpose-built vector infrastructure optimized for low-latency relevance.
+- **React + Vite**: excellent DX, fast HMR, and smooth interactive UX for data-heavy applications.
+- **Terraform**: infrastructure as code that is predictable, reviewable, and easy to evolve.
+- **AWS (EC2/ECR/S3/SSM)**: practical cloud primitives that balance control, speed, and cost.
 
 | Layer               | Tech Stack                                                              |
 | ------------------- | ----------------------------------------------------------------------- |
@@ -86,7 +95,7 @@ Diagram source: `docs/infra-architecture.mmd`
 | **Backend**         | FastAPI · Pydantic v2 · Async Python · Uvicorn                          |
 | **Frontend**        | React 18 · Vite · Custom hooks · CSS modules                            |
 | **Data Source**     | SEC EDGAR API · 10-K & 10-Q filings                                     |
-| **DevOps / Infra**  | Docker · Terraform · AWS EC2/ECR/S3/SSM · AWS Budgets · CloudWatch     |
+| **DevOps / Infra**  | Docker · Terraform · AWS EC2/ECR/S3/SSM · AWS Budgets · CloudWatch      |
 
 ---
 
