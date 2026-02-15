@@ -114,6 +114,29 @@ Diagram source: `docs/infra-architecture.mmd`
 └─────────────────────────────────────────────────────────────┘
 ```
 
+### RAG Agent Flow (Mermaid)
+
+```mermaid
+flowchart LR
+        Q[User Question]
+        R[Router Agent\nDeterministic Intent Routing]
+        RET[Retriever\nPinecone Semantic Search]
+        CONTEXT[Top-k Filing Chunks\n+ Metadata]
+        FAST[Fast RAG Agent\nSingle-call synthesis]
+        LLM[OpenAI / Anthropic / Ollama]
+        A[Final Answer\nwith Citations]
+
+        Q --> R
+        R --> RET
+        RET --> CONTEXT
+        CONTEXT --> FAST
+        FAST --> LLM
+        LLM --> FAST
+        FAST --> A
+```
+
+Diagram source: `docs/rag-agent-flow.mmd`
+
 ---
 
 ## Features
