@@ -2,7 +2,7 @@
 
 ### AI-Powered Financial Intelligence Platform
 
-> A full-stack RAG (Retrieval-Augmented Generation) application that lets users ask natural language questions about SEC filings from the Magnificent 7 tech companies — and get cited, analyst-grade answers in seconds.
+> An **agentic AI-optimized** full-stack RAG platform that turns SEC filings into fast, cited, analyst-grade intelligence with deterministic routing, single-call synthesis, and aggressive latency optimization.
 
 ![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?logo=fastapi&logoColor=white)
@@ -68,12 +68,26 @@ Diagram source: `docs/infra-architecture.mmd`
 
 ---
 
+## 🤖 Agentic AI Optimization Focus
+
+This project is deliberately engineered to showcase **optimized agentic AI systems design**:
+
+- **Deterministic Router Agent** minimizes unnecessary LLM calls and reduces cost/latency.
+- **Fast RAG Agent (single-call synthesis)** compresses retrieval + reasoning + reporting into one high-efficiency pass.
+- **Retrieval + Answer Caching** delivers ultra-fast repeated queries and benchmark-level responsiveness.
+- **Request Deduplication** prevents duplicate concurrent work under load and improves throughput.
+- **Provider-Agnostic LLM Layer** enables rapid model switching (OpenAI / Anthropic / Ollama) without architecture changes.
+
+In short: this app is not just “using AI” — it is **optimizing agentic AI execution paths for real-world performance**.
+
+---
+
 ## Key Technologies
 
 ### 🔥 Core Stack (Strong Highlights)
 
 - **FastAPI + Async Python** — blazing-fast APIs, clean architecture, and excellent developer velocity.
-- **LangChain Multi-Agent RAG** — smart routing + retrieval + synthesis that feels truly “agentic.”
+- **LangChain Multi-Agent RAG** — optimization-first routing + retrieval + synthesis that demonstrates true agentic orchestration.
 - **Pinecone Vector Database** — lightning semantic search over large SEC filing corpora.
 - **React 18 + Vite** — ultra-snappy UI feedback and modern frontend productivity.
 - **Terraform on AWS** — repeatable, production-style infrastructure with real cost guardrails.
@@ -156,9 +170,10 @@ Ask natural language questions about any MAG7 company's SEC filings. The system 
 
 ### Multi-Agent RAG Pipeline
 
-- **Router Agent** — Deterministic classification (no LLM call) routes queries to the right processing path
-- **Fast RAG Agent** — Combined retriever + analyst + reporter in a single LLM call (3x fewer API calls than naive approaches)
-- **LLM Cache** — Reusable LLM instances with provider-specific connection pooling
+- **Router Agent** — Deterministic classification (no LLM call) routes queries with optimization-first control.
+- **Fast RAG Agent** — Retriever + analyst + reporter fused into a single LLM call (**~3x fewer calls** than naive chains).
+- **LLM Cache** — Reusable LLM instances with provider-aware pooling to reduce warmup overhead.
+- **Request Deduplication Layer** — Identical in-flight requests share execution for better concurrency behavior.
 
 ### Multi-Provider LLM Support
 
@@ -317,13 +332,14 @@ npm test -- --coverage            # with coverage
 
 ## Technical Highlights
 
-- **Single-call RAG** — Combines retrieval + analysis + generation in one LLM call, reducing latency by ~3x vs. sequential agent chains
-- **Deterministic routing** — Zero-cost query classification without burning an LLM call
-- **Retrieval caching** — MD5-hashed cache keys with configurable TTL for instant repeated lookups
-- **Request deduplication** — Concurrent identical requests share a single pipeline execution
-- **Provider-agnostic LLM layer** — Swap OpenAI ↔ Anthropic ↔ Ollama with no code changes
-- **Async-first backend** — Full async/await from endpoint to LLM call for maximum throughput
-- **Pre-loaded embeddings** — Sentence-Transformers model loaded at startup, not on first request
+- **Agentic path optimization** — Explicitly engineered execution paths that minimize token, latency, and call overhead.
+- **Single-call RAG synthesis** — Retrieval + reasoning + reporting in one pass for materially faster responses.
+- **Deterministic routing control** — Zero-cost query routing before model invocation.
+- **Retrieval + answer caching** — Sub-second repeat behavior and dramatic latency collapse on warm paths.
+- **Request deduplication under concurrency** — Identical parallel requests are collapsed into one pipeline run.
+- **Provider-agnostic model orchestration** — OpenAI ↔ Anthropic ↔ Ollama switching without architectural rewrites.
+- **Async-first throughput design** — End-to-end async processing from API edge to model call.
+- **Preloaded embedding runtime** — Startup-time model readiness avoids first-query cold penalties.
 
 ---
 
