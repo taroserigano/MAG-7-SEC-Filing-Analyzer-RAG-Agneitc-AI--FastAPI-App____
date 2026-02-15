@@ -1,0 +1,75 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+dnf update -y
+dnf install -y docker awscli
+systemctl enable --now docker
+
+mkdir -p /opt/mag7
+
+cat > /opt/mag7/run-backend.sh <<'SCRIPT'
+#!/usr/bin/env bash
+set -euo pipefail
+
+REGION="${aws_region}"
+ECR_REGISTRY="${aws_account_id}.dkr.ecr.${aws_region}.amazonaws.com"
+IMAGE_URI="$ECR_REGISTRY/${ecr_repo_name}:${backend_image_tag}"
+
+get_param() {
+  aws ssm get-parameter \
+    --region "$REGION" \
+    --name "$1" \
+    --with-decryption \
+    --query 'Parameter.Value' \
+    --output text
+}
+
+OPENAI_API_KEY="$(get_param "${openai_param_name}")"
+ANTHROPIC_API_KEY="$(get_param "${anthropic_param_name}")"
+PINECONE_API_KEY="$(get_param "${pinecone_param_name}")"
+PINECONE_INDEX_NAME="$(get_param "${pinecone_index_param}")"
+PINECONE_ENVIRONMENT="$(get_param "${pinecone_env_param}")"
+CORS_ORIGINS="$(get_param "${cors_origins_param_name}")"
+
+for attempt in {1..180}; do
+  if aws ecr get-login-password --region "$REGION" | docker login --username AWS --password-stdin "$ECR_REGISTRY" && docker pull "$IMAGE_URI"; then
+    break
+  fi
+  sleep 20
+done
+
+docker rm -f mag7-backend || true
+
+docker run -d \
+  --name mag7-backend \
+  --restart unless-stopped \
+  -p 8000:8000 \
+  -e OPENAI_API_KEY="$OPENAI_API_KEY" \
+  -e ANTHROPIC_API_KEY="$ANTHROPIC_API_KEY" \
+  -e PINECONE_API_KEY="$PINECONE_API_KEY" \
+  -e PINECONE_INDEX_NAME="$PINECONE_INDEX_NAME" \
+  -e PINECONE_ENVIRONMENT="$PINECONE_ENVIRONMENT" \
+  -e CORS_ORIGINS="$CORS_ORIGINS" \
+  "$IMAGE_URI"
+SCRIPT
+
+chmod +x /opt/mag7/run-backend.sh
+
+cat > /etc/systemd/system/mag7-backend.service <<'UNIT'
+[Unit]
+Description=MAG7 Backend Container
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+ExecStart=/opt/mag7/run-backend.sh
+ExecStop=/usr/bin/docker rm -f mag7-backend
+
+[Install]
+WantedBy=multi-user.target
+UNIT
+
+systemctl daemon-reload
+systemctl enable --now mag7-backend.service

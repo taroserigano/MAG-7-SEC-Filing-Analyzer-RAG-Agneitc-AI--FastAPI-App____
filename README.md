@@ -15,23 +15,31 @@
 
 ## Demo
 
-| Single Company Q&A | Multi-Company Compare |
-|---|---|
+| Single Company Q&A                                                                                                  | Multi-Company Compare                                                                    |
+| ------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
 | Ask any question about a MAG7 stock's SEC filings and receive a cited, LLM-generated answer with source references. | Compare financial metrics, risks, and strategies across multiple companies side-by-side. |
 
 ---
 
 ## Key Technologies
 
-| Layer | Tech Stack |
-|---|---|
-| **LLM Providers** | OpenAI GPT-4o-mini · Anthropic Claude 3.5 Haiku · Ollama (local) |
-| **RAG Pipeline** | LangChain 0.3 · Custom multi-agent architecture · Deterministic routing |
-| **Vector Database** | Pinecone (serverless) · Sentence-Transformers embeddings |
-| **Backend** | FastAPI · Pydantic v2 · Async Python · Uvicorn |
-| **Frontend** | React 18 · Vite · Custom hooks · CSS modules |
-| **Data Source** | SEC EDGAR API · 10-K & 10-Q filings |
-| **DevOps** | Docker Compose · pytest · Vitest |
+### 🔥 Core Stack (Strong Highlights)
+
+- **FastAPI + Async Python** for high-throughput backend APIs and agent orchestration.
+- **LangChain Multi-Agent RAG** with deterministic routing + single-call fast RAG pipeline.
+- **Pinecone Vector Database** for low-latency semantic retrieval across SEC filings.
+- **React 18 + Vite** for fast, responsive frontend UX.
+- **Terraform on AWS** provisioning EC2, ECR, S3 static hosting, IAM, SSM, Budgets, and CloudWatch billing alerts.
+
+| Layer               | Tech Stack                                                              |
+| ------------------- | ----------------------------------------------------------------------- |
+| **LLM Providers**   | OpenAI GPT-4o-mini · Anthropic Claude 3.5 Haiku · Ollama (local)        |
+| **RAG Pipeline**    | LangChain 0.3 · Custom multi-agent architecture · Deterministic routing |
+| **Vector Database** | Pinecone (serverless) · Sentence-Transformers embeddings                |
+| **Backend**         | FastAPI · Pydantic v2 · Async Python · Uvicorn                          |
+| **Frontend**        | React 18 · Vite · Custom hooks · CSS modules                            |
+| **Data Source**     | SEC EDGAR API · 10-K & 10-Q filings                                     |
+| **DevOps / Infra**  | Docker · Terraform · AWS EC2/ECR/S3/SSM · AWS Budgets · CloudWatch     |
 
 ---
 
@@ -64,31 +72,38 @@
 ## Features
 
 ### Intelligent Q&A with Citations
+
 Ask natural language questions about any MAG7 company's SEC filings. The system retrieves relevant filing excerpts, synthesizes an answer, and returns source citations — all in a single optimized LLM call.
 
 ### Multi-Agent RAG Pipeline
+
 - **Router Agent** — Deterministic classification (no LLM call) routes queries to the right processing path
 - **Fast RAG Agent** — Combined retriever + analyst + reporter in a single LLM call (3x fewer API calls than naive approaches)
 - **LLM Cache** — Reusable LLM instances with provider-specific connection pooling
 
 ### Multi-Provider LLM Support
+
 Switch between **OpenAI GPT-4o-mini**, **Anthropic Claude 3.5 Haiku**, or **Ollama** (fully local, offline) with a single click in the UI. No code changes required.
 
 ### Multi-Company Comparison
+
 Compare financial metrics, risk factors, or business strategies across multiple MAG7 stocks side-by-side. Powered by concurrent API calls for fast results.
 
 ### Performance Optimizations
-| Metric | Before | After | Improvement |
-|---|---|---|---|
-| Repeated query | 9.69s | **20ms** | **485x faster** |
-| Compare 2 stocks (cached) | 12.21s | **16ms** | **610x faster** |
-| Frontend re-renders | Excessive | Memoized | **React.memo + useCallback** |
-| Health check polling | Every 30s | Every 2min | **4x reduction** |
+
+| Metric                    | Before    | After      | Improvement                  |
+| ------------------------- | --------- | ---------- | ---------------------------- |
+| Repeated query            | 9.69s     | **20ms**   | **485x faster**              |
+| Compare 2 stocks (cached) | 12.21s    | **16ms**   | **610x faster**              |
+| Frontend re-renders       | Excessive | Memoized   | **React.memo + useCallback** |
+| Health check polling      | Every 30s | Every 2min | **4x reduction**             |
 
 ### Advanced RAG Controls
+
 Toggle reranking, query rewriting, retrieval caching, section boosting, and hybrid search from the UI control panel — empowering users to experiment with different retrieval strategies.
 
 ### Real-Time SEC Data Ingestion
+
 Fetch the latest 10-K and 10-Q filings directly from the SEC EDGAR API, chunk and embed them, and store in Pinecone — all from inside the app.
 
 ---
@@ -138,6 +153,7 @@ Fetch the latest 10-K and 10-Q filings directly from the SEC EDGAR API, chunk an
 ## Quick Start
 
 ### Prerequisites
+
 - **Python 3.9+** — Backend runtime
 - **Node.js 18+** — Frontend tooling
 - **API Keys** — Pinecone + at least one LLM provider (OpenAI, Anthropic, or Ollama)
@@ -174,10 +190,10 @@ bash start-all.sh
 docker-compose up -d
 ```
 
-| Service | URL |
-|---|---|
-| Frontend | http://localhost:5173 |
-| Backend API | http://localhost:8000 |
+| Service            | URL                        |
+| ------------------ | -------------------------- |
+| Frontend           | http://localhost:5173      |
+| Backend API        | http://localhost:8000      |
 | API Docs (Swagger) | http://localhost:8000/docs |
 
 ---
@@ -201,16 +217,19 @@ npm test -- --coverage            # with coverage
 ## Sample Questions
 
 **Financial Performance**
+
 - "What was Apple's total revenue and operating income in 2023?"
 - "How did NVIDIA's data center revenue grow compared to last year?"
 - "What are Tesla's gross margins and how have they changed?"
 
 **Risk & Strategy**
+
 - "What are the key risk factors for Microsoft?"
 - "What is Google's AI strategy according to their latest filings?"
 - "What cybersecurity risks does Amazon face?"
 
 **Company Comparisons**
+
 - "Compare NVIDIA and AMD's GPU market performance and revenue"
 - "How do Apple and Microsoft's R&D investments compare?"
 - "Compare Amazon and Google's cloud infrastructure spending"

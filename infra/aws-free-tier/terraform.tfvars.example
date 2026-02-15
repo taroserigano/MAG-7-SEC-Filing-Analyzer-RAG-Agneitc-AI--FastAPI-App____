@@ -1,0 +1,16 @@
+aws_region            = "us-east-1"
+project_name          = "mag7"
+instance_type         = "t3.micro"
+backend_image_tag     = "latest"
+
+openai_api_key        = ""
+anthropic_api_key     = ""
+pinecone_api_key      = ""
+pinecone_index_name   = "mag7-sec-filings"
+pinecone_environment  = "us-west1-gcp"
+
+enable_cost_guardrails         = true
+budget_alert_email             = ""
+monthly_budget_limit_usd       = 10
+budget_alert_threshold_percent = 80
+billing_alarm_threshold_usd    = 5

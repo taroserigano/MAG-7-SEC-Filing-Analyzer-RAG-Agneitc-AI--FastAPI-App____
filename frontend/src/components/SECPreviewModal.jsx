@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { API_BASE_URL } from "../services/api";
 import "./SECPreviewModal.css";
 
 export function SECPreviewModal({ ticker, onClose }) {
@@ -56,7 +57,7 @@ export function SECPreviewModal({ ticker, onClose }) {
         const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
 
         const response = await fetch(
-          `http://localhost:8001/api/sec-preview/${ticker}?format=${format}`,
+          `${API_BASE_URL}/api/sec-preview/${ticker}?format=${format}`,
           {
             signal: controller.signal,
           },
@@ -109,7 +110,7 @@ export function SECPreviewModal({ ticker, onClose }) {
           err.name === "AbortError"
         ) {
           setError(
-            "⚠️ Cannot connect to backend server. Please ensure the backend is running on port 8000.",
+            `⚠️ Cannot connect to backend server at ${API_BASE_URL}. Please ensure it is running.`,
           );
         } else if (
           err.message.includes("Filing not found") ||

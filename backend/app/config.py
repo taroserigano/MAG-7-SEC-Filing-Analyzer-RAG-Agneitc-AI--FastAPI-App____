@@ -41,6 +41,7 @@ class Settings(BaseSettings):
     port: int = 8000
     host: str = "0.0.0.0"
     reload: bool = True
+    cors_origins: str = "http://localhost:5173,http://localhost:3000"
     
     model_config = SettingsConfigDict(
         extra="ignore",

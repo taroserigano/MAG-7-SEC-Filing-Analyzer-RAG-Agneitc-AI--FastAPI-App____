@@ -1,5 +1,5 @@
 // Prefer explicit backend base; fall back to local dev backend to avoid hitting the Vite dev server.
-const API_BASE_URL =
+export const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL || "http://localhost:8001";
 
 // Helper function to add timeout to fetch requests

@@ -14,8 +14,10 @@ httpx==0.26.0  # For TestClient (updated version)
 # AI/ML Libraries
 openai==1.59.8
 anthropic==0.42.0
-langchain==0.3.18
+langchain==0.3.19
 langchain-community==0.3.18
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.6.0+cpu
 sentence-transformers==3.4.1
 langchain-openai==0.3.2
 langchain-anthropic==0.3.4

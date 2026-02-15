@@ -200,6 +200,9 @@ app = FastAPI(
     lifespan=lifespan
 )
 
+settings = get_settings()
+cors_origins = [origin.strip() for origin in settings.cors_origins.split(",") if origin.strip()]
+
 # Add validation error handler for debugging
 @app.exception_handler(RequestValidationError)
 async def validation_exception_handler(request: Request, exc: RequestValidationError):
@@ -215,7 +218,7 @@ async def validation_exception_handler(request: Request, exc: RequestValidationE
 # Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://localhost:3000"],  # Kept explicit defaults
+    allow_origins=cors_origins,
     allow_origin_regex=r"http://localhost:\d+",  # Allow any localhost dev port (e.g., 5174 fallback)
     allow_credentials=True,
     allow_methods=["*"],

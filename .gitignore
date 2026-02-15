@@ -68,6 +68,18 @@ Desktop.ini
 logs/
 
 # =========================
+# Terraform
+# =========================
+.terraform/
+*.tfstate
+*.tfstate.*
+terraform.tfvars
+*.tfplan
+*.tfvars
+.terraform.tfstate.lock.info
+.terragrunt-cache/
+
+# =========================
 # Cache / Temp
 # =========================
 backend/sec_cache/
