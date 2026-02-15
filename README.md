@@ -13,6 +13,33 @@
 
 ---
 
+## Infrastructure (Terraform + AWS)
+
+Provisioned with **Terraform** and deployed on **AWS** with cost guardrails:
+
+- **EC2 (t3.micro)** runs the FastAPI backend container
+- **ECR** stores backend Docker images
+- **S3 Static Website** hosts the React frontend build
+- **SSM Parameter Store** stores runtime secrets/config
+- **AWS Budgets + CloudWatch Billing Alarm + SNS** sends cost alerts
+
+```
+Users
+    │
+    ├──> S3 Static Website (React)
+    │         │
+    │         └──> EC2 :8000 (FastAPI backend container)
+    │                         │
+    │                         ├──> Pinecone (vector retrieval)
+    │                         └──> OpenAI / Anthropic / Ollama
+    │
+Terraform
+    ├── provisions: EC2, ECR, S3, IAM, SSM, SG
+    └── cost guardrails: AWS Budget + Billing Alarm + SNS email
+```
+
+---
+
 ## Demo
 
 | Single Company Q&A                                                                                                  | Multi-Company Compare                                                                    |
